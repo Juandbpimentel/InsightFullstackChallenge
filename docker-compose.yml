@@ -12,9 +12,7 @@ services:
     volumes:
       - ./backend/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     ports:
-      - "27017:27017"
-    expose:
-      - 27017
+      - "0.0.0.0:27017:27017"
     networks:
       - insight-backend-network
 
@@ -33,7 +31,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - "8888:8081"
+      - "0.0.0.0:8081:8081"
     networks:
       - insight-backend-network
 
@@ -53,7 +51,7 @@ services:
       PORT: 8080
       JAR_FILE: target/SupplierApplicationInsight-1.0.0.jar
     ports:
-      - "8080:8080"
+      - "0.0.0.0:8080:8080"
     depends_on:
       - mongodb
     networks:
