@@ -14,7 +14,7 @@
 	<name>Supplier Application Insight Challenge</name>
 	<description>Esse é um backend feito para o desafio de código de uma bolsa do Insight Lab</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>17</java.version>
 		<start-class>br.ufc.quixada.SupplierApplicationInsight.Main</start-class>
 	</properties>
 	<dependencies>
