@@ -1,4 +1,4 @@
-package quixada.ufc.br.SupplierApplicationInsight;
+package br.ufc.quixada.SupplierApplicationInsight;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

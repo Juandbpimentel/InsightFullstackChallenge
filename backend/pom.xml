@@ -8,13 +8,14 @@
 		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>quixada.ufc.br</groupId>
+	<groupId>br.ufc.quixada</groupId>
 	<artifactId>SupplierApplicationInsight</artifactId>
 	<version>1.0.0</version>
 	<name>Supplier Application Insight Challenge</name>
 	<description>Esse é um backend feito para o desafio de código de uma bolsa do Insight Lab</description>
 	<properties>
 		<java.version>22</java.version>
+		<start-class>br.ufc.quixada.SupplierApplicationInsight.Application</start-class>
 	</properties>
 	<dependencies>
 
@@ -25,13 +26,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -61,6 +55,11 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>3.3.0</version>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -75,6 +74,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<mainClass>br.ufc.quixada.SupplierApplicationInsight.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
