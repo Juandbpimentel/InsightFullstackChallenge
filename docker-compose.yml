@@ -51,6 +51,7 @@ services:
       MONGODB_PORT: 27017
       MONGODB_DATABASE: insight
       PORT: 8080
+      JAR_FILE: target/SupplierApplicationInsight-1.0.0.jar
     ports:
       - "8080:8080"
     depends_on:

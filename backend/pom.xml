@@ -15,7 +15,7 @@
 	<description>Esse é um backend feito para o desafio de código de uma bolsa do Insight Lab</description>
 	<properties>
 		<java.version>22</java.version>
-		<start-class>br.ufc.quixada.SupplierApplicationInsight.Application</start-class>
+		<start-class>br.ufc.quixada.SupplierApplicationInsight.Main</start-class>
 	</properties>
 	<dependencies>
 
@@ -74,7 +74,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<mainClass>br.ufc.quixada.SupplierApplicationInsight.Application</mainClass>
+					<mainClass>br.ufc.quixada.SupplierApplicationInsight.Main</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
