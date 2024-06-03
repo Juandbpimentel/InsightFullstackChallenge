@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>quixada.ufc.br</groupId>
 	<artifactId>SupplierApplicationInsight</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Supplier Application Insight Challenge</name>
 	<description>Esse é um backend feito para o desafio de código de uma bolsa do Insight Lab</description>
 	<properties>
