@@ -10,7 +10,7 @@ services:
       MONGO_PASSWORD: insightpassword
       MONGO_INITDB_DATABASE: insight
     volumes:
-      - ./backend/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     ports:
       - "0.0.0.0:27017:27017"
     networks:
@@ -38,9 +38,7 @@ services:
   backend:
     image: insight-backend
     container_name: insight_backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: .
     environment:
       JWT_SECRET: insightsecret
       MONGODB_USERNAME: insightuser
@@ -49,15 +47,16 @@ services:
       MONGODB_PORT: 27017
       MONGODB_DATABASE: insight
       PORT: 8080
-      JAR_FILE: target/SupplierApplicationInsight-1.0.0.jar
+      JAR_FILE: ./target/SupplierApplicationInsight-1.0.0.jar
     ports:
       - "0.0.0.0:8080:8080"
     depends_on:
       - mongodb
     networks:
       - insight-backend-network
-
+    volumes:
+      - target:target
 
 networks:
-    insight-backend-network:
-        driver: bridge
+  insight-backend-network:
+    driver: bridge
