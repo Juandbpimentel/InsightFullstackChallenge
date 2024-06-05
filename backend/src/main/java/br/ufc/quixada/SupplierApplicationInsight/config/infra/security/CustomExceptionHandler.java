@@ -104,6 +104,16 @@ public class CustomExceptionHandler
             Exception exception)
     {
         Map<String,String>errorMap=new HashMap<>();
+        if(exception.getMessage().contains("Required request body is missing")){
+            errorMap.put("message","Required request body is missing");
+            errorMap.put("errorCode","missing-body-bad-request");
+            return errorMap;
+        }
+        if(exception.getMessage().contains("No fields to update")){
+            errorMap.put("message","No fields to update");
+            errorMap.put("errorCode","no-fields-update");
+            return errorMap;
+        }
         errorMap.put("message",exception.getMessage());
         errorMap.put("errorCode","internal-server-error");
         errorMap.put("exception",exception.getClass().getName());
