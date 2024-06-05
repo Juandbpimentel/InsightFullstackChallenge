@@ -1,6 +1,6 @@
 services:
   mongodb:
-    image: mongo
+    image: mongo:8.0-rc-jammy
     container_name: mongodb_insight
     restart: always
     environment:

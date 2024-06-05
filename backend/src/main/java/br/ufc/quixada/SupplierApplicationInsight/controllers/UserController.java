@@ -44,14 +44,14 @@ public class UserController {
         return ResponseEntity.ok(new UserMeGetResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole().name()));
     }
 
-    @PutMapping(consumes = "application/json", produces = "application/json", path = "/me")
+    @PutMapping(consumes = "application/json", produces = "application/json", path = "/me/update")
     public ResponseEntity<UserMeUpdateResponseDTO> updateMe(@Valid @RequestBody UserUpdateRequestDTO user) {
         User updatedUser = userService.updateMe(user.toMap());
         String token = tokenService.generateToken(updatedUser);
         return ResponseEntity.ok(new UserMeUpdateResponseDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail(), updatedUser.getRole().name(), token));
     }
 
-    @DeleteMapping(path = "/me")
+    @DeleteMapping(path = "/me/delete")
     public ResponseEntity<String> deleteMe() {
         userService.deleteMe();
         return ResponseEntity.ok("User deleted successfully");
@@ -64,19 +64,19 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping(consumes = "application/json", produces = "application/json", path = "/{id}")
+    @PutMapping(consumes = "application/json", produces = "application/json", path = "/update/{id}")
     public ResponseEntity<UserUpdateResponseDTO> updateUser(@PathVariable String id, @Valid @RequestBody UserUpdateRequestDTO user) throws UserNotFoundException {
         User updatedUser = userService.updateById(id, user.toMap());
         updatedUser.setPassword(null);
         return ResponseEntity.ok(new UserUpdateResponseDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail(), updatedUser.getRole().name()));
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id) {
         return ResponseEntity.ok(userService.deleteById(id));
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json", path = "/")
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/create")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws UserAlreadyExistsException {
         User newUser = userService.createUser(user);
         newUser.setPassword(null);
