@@ -38,7 +38,7 @@ services:
   backend:
     image: insight-backend
     container_name: insight_backend
-    build:
+    build: 
       context: ./backend
       dockerfile: Dockerfile
     environment:
@@ -49,7 +49,7 @@ services:
       MONGODB_PORT: 27017
       MONGODB_DATABASE: insight
       PORT: 8080
-      JAR_FILE: target/SupplierApplicationInsight-1.0.0.jar
+      JAR_FILE: ./target/SupplierApplicationInsight-1.0.0.jar
     ports:
       - "0.0.0.0:8080:8080"
     depends_on:
@@ -57,7 +57,6 @@ services:
     networks:
       - insight-backend-network
 
-
 networks:
-    insight-backend-network:
-        driver: bridge
+  insight-backend-network:
+    driver: bridge
