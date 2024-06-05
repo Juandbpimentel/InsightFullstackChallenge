@@ -27,7 +27,7 @@ public class SupplierController {
     @PostMapping(consumes = "application/json", produces = "application/json",path="/")
     public ResponseEntity<String> createSupplier(@RequestBody @Valid SupplierCreateRequestDTO body) throws Exception {
         try {
-            Supplier supplier = supplierRepository.save(new Supplier(body.name(),body.CNPJ(), body.phone(), body.email(), body.address(),body.serviceOrProductProvided()));
+            Supplier supplier = supplierRepository.save(new Supplier(body.name(),body.CNPJ(), body.phone(), body.email(), body.address(),body.typeOfSupplier()));
             return ResponseEntity.ok("Supplier created");
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Error creating supplier, exception" + e.getMessage());

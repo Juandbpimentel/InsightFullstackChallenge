@@ -19,6 +19,8 @@ import br.ufc.quixada.SupplierApplicationInsight.types.dto.authentication.reques
 import br.ufc.quixada.SupplierApplicationInsight.types.dto.authentication.response.AuthenticationResponseDTO;
 import br.ufc.quixada.SupplierApplicationInsight.types.exceptions.UserAlreadyExistsException;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -43,9 +45,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDTO> register(@RequestBody @Valid RegisterRequestDTO body) throws UserAlreadyExistsException {
-        String encryptedPassword = new BCryptPasswordEncoder().encode(body.password());
-        User newUser = new User(body.name(), body.email(), encryptedPassword, body.role());
-        User newUserCreated = userService.createUser(newUser);
+        User newUserCreated = userService.createUser(new User(body.name(), body.email(), body.password(), body.role()));
         return this.login(new AuthenticationRequestDTO(newUserCreated.getEmail(), body.password()));
     }
 

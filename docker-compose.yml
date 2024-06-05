@@ -1,6 +1,6 @@
 services:
   mongodb:
-    image: mongo
+    image: mongo:8.0-rc-jammy
     container_name: mongodb_insight
     restart: always
     environment:
@@ -10,7 +10,7 @@ services:
       MONGO_PASSWORD: insightpassword
       MONGO_INITDB_DATABASE: insight
     volumes:
-      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./backend/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     ports:
       - "0.0.0.0:27017:27017"
     networks:
@@ -38,7 +38,9 @@ services:
   backend:
     image: insight-backend
     container_name: insight_backend
-    build: .
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     environment:
       JWT_SECRET: insightsecret
       MONGODB_USERNAME: insightuser
@@ -54,8 +56,6 @@ services:
       - mongodb
     networks:
       - insight-backend-network
-    volumes:
-      - target:target
 
 networks:
   insight-backend-network:

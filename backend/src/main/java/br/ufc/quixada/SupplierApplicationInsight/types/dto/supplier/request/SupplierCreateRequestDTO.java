@@ -21,6 +21,6 @@ public record SupplierCreateRequestDTO (
         @NotNull(message = "address is required")
         @NotBlank(message = "address cannot be blank") String address,
 
-        @NotNull(message = "serviceOrProductProvided is required")
-        @NotBlank(message = "serviceOrProductProvided cannot be blank") String serviceOrProductProvided){
+        @NotNull(message = "typeOfSupplier is required")
+        @NotBlank(message = "typeOfSupplier cannot be blank") String typeOfSupplier){
 }

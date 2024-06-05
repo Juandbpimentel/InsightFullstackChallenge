@@ -42,8 +42,8 @@ public class Supplier {
     @NotBlank(message = "address cannot be blank")
     private String address;
 
-    @NotNull(message = "serviceOrProductProvided is required")
-    @NotBlank(message = "serviceOrProductProvided cannot be blank")
+    @NotNull(message = "typeOfSupplier is required")
+    @NotBlank(message = "typeOfSupplier cannot be blank")
     private String typeOfSupplier;
 
     public Supplier(String name, String CNPJ, String phone, String email, String address, String typeOfSupplier) {
