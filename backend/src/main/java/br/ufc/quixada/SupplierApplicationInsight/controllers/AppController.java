@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class AppController {
-    @GetMapping(path = "isup")
+    @GetMapping(path = "/isup")
     public ResponseEntity<String> verifyAPIStatus() {
         return ResponseEntity.ok("The API is up!");
     }

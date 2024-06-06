@@ -1,10 +1,12 @@
-package br.ufc.quixada.SupplierApplicationInsight.types.dto.supplier.request;
+package br.ufc.quixada.SupplierApplicationInsight.types.dto.supplier;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record SupplierCreateRequestDTO (
+import java.util.List;
+
+public record SupplierCreateRequestDTO(
         @NotNull(message = "name is required")
         @NotBlank(message = "name cannot be blank") String name,
 
@@ -21,6 +23,5 @@ public record SupplierCreateRequestDTO (
         @NotNull(message = "address is required")
         @NotBlank(message = "address cannot be blank") String address,
 
-        @NotNull(message = "typeOfSupplier is required")
-        @NotBlank(message = "typeOfSupplier cannot be blank") String typeOfSupplier){
+        @NotNull(message = "supplyTypes is required") List<String> supplyTypes) {
 }

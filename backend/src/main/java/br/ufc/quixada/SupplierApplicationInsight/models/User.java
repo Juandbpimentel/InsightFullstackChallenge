@@ -1,16 +1,17 @@
 package br.ufc.quixada.SupplierApplicationInsight.models;
 
+import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.UserDTO;
+import br.ufc.quixada.SupplierApplicationInsight.types.enums.UserRole;
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import br.ufc.quixada.SupplierApplicationInsight.types.enums.UserRole;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +44,7 @@ public class User implements UserDetails {
     @NotNull(message = "role is required")
     private UserRole role;
 
-    public User( String name, String email, String password, UserRole role) {
+    public User(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -53,7 +54,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return (this.role == UserRole.ADMIN)
-                ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"))
+                ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"))
                 : List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
@@ -80,5 +81,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDTO toUserDTO() {
+        return new UserDTO(this.id, this.name, this.email, this.role);
     }
 }

@@ -1,4 +1,6 @@
 package br.ufc.quixada.SupplierApplicationInsight.types.dto.authentication.response;
 
-public record AuthenticationResponseDTO(String token, String email, String role) {
+import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.UserDTO;
+
+public record AuthenticationResponseDTO(String token, UserDTO user) {
 }

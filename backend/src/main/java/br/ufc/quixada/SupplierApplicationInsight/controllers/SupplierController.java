@@ -1,53 +1,52 @@
 package br.ufc.quixada.SupplierApplicationInsight.controllers;
 
+import br.ufc.quixada.SupplierApplicationInsight.models.Supplier;
+import br.ufc.quixada.SupplierApplicationInsight.services.SupplierService;
+import br.ufc.quixada.SupplierApplicationInsight.types.dto.supplier.SupplierCreateRequestDTO;
+import br.ufc.quixada.SupplierApplicationInsight.types.dto.supplier.SupplierUpdateRequestDTO;
+import br.ufc.quixada.SupplierApplicationInsight.types.enums.SupplyType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
-import br.ufc.quixada.SupplierApplicationInsight.models.Supplier;
-import br.ufc.quixada.SupplierApplicationInsight.repositories.SupplierRepository;
-import br.ufc.quixada.SupplierApplicationInsight.types.dto.supplier.request.SupplierCreateRequestDTO;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("supplier")
+@RequestMapping("/supplier")
 public class SupplierController {
     @Autowired
-    private SupplierRepository supplierRepository;
+    private SupplierService supplierService;
 
-    @GetMapping(produces = "application/json",path="/")
+    @GetMapping(produces = "application/json", path = "/list")
     public ResponseEntity<List<Supplier>> listSuppliers() {
-        return ResponseEntity.ok(supplierRepository.findAll());
+        return ResponseEntity.ok(supplierService.listSuppliers());
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json",path="/")
-    public ResponseEntity<String> createSupplier(@RequestBody @Valid SupplierCreateRequestDTO body) throws Exception {
-        try {
-            Supplier supplier = supplierRepository.save(new Supplier(body.name(),body.CNPJ(), body.phone(), body.email(), body.address(),body.typeOfSupplier()));
-            return ResponseEntity.ok("Supplier created");
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("Error creating supplier, exception" + e.getMessage());
-        }
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/create")
+    public ResponseEntity<Supplier> createSupplier(@RequestBody @Valid SupplierCreateRequestDTO body) {
+        List<SupplyType> supplierSupplyTypes = body.supplyTypes().stream().map(SupplyType::valueOf).toList();
+        Supplier supplier = supplierService.createSupplier(new Supplier(body.name(), body.CNPJ(), body.phone(), body.email(), body.address(), supplierSupplyTypes));
+        return ResponseEntity.status(HttpStatus.CREATED).body(supplier);
     }
 
-    @GetMapping(produces = "application/json",path="/{id}")
+    @GetMapping(produces = "application/json", path = "/{id}")
     public ResponseEntity<Supplier> getSupplier(@PathVariable String id) {
-        Optional<Supplier> supplier = supplierRepository.findById(id);
-        return supplier.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Supplier supplier = supplierService.getSupplierById(id);
+        return ResponseEntity.ok().body(supplier);
     }
 
-    @PutMapping(consumes = "application/json", produces = "application/json",path="/{id}")
-    public ResponseEntity<String> updateSupplier(@PathVariable String id,@RequestBody @Valid SupplierCreateRequestDTO body) {
-        return ResponseEntity.ok("Supplier updated");
+    @PutMapping(consumes = "application/json", produces = "application/json", path = "/update/{id}")
+    public ResponseEntity<Supplier> updateSupplier(@PathVariable String id, @RequestBody @Valid SupplierUpdateRequestDTO body) {
+        Supplier supplier = supplierService.updateSupplier(id, body.toMap());
+        return ResponseEntity.ok().body(supplier);
     }
 
-    @DeleteMapping(produces = "application/json",path="/{id}")
-    public ResponseEntity<String> deleteSupplier(@PathVariable String id) {
-        return ResponseEntity.ok("Supplier deleted");
+    @DeleteMapping(produces = "application/json", path = "/delete/{id}")
+    public ResponseEntity<?> deleteSupplier(@PathVariable String id) {
+        supplierService.deleteSupplierById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

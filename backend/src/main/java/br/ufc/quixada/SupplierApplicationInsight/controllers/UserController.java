@@ -3,6 +3,7 @@ package br.ufc.quixada.SupplierApplicationInsight.controllers;
 import br.ufc.quixada.SupplierApplicationInsight.models.User;
 import br.ufc.quixada.SupplierApplicationInsight.services.TokenService;
 import br.ufc.quixada.SupplierApplicationInsight.services.UserService;
+import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.UserDTO;
 import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.request.UserUpdateRequestDTO;
 import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.response.UserMeGetResponseDTO;
 import br.ufc.quixada.SupplierApplicationInsight.types.dto.user.response.UserMeUpdateResponseDTO;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class UserController {
     public ResponseEntity<UserMeUpdateResponseDTO> updateMe(@Valid @RequestBody UserUpdateRequestDTO user) {
         User updatedUser = userService.updateMe(user.toMap());
         String token = tokenService.generateToken(updatedUser);
-        return ResponseEntity.ok(new UserMeUpdateResponseDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail(), updatedUser.getRole().name(), token));
+        return ResponseEntity.ok(new UserMeUpdateResponseDTO(new UserDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail(), updatedUser.getRole()), token));
     }
 
     @DeleteMapping(path = "/me/delete")

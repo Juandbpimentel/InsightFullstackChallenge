@@ -1,5 +1,6 @@
 package br.ufc.quixada.SupplierApplicationInsight.models;
 
+import br.ufc.quixada.SupplierApplicationInsight.types.enums.SupplyType;
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "suppliers")
 @Data
@@ -42,16 +45,15 @@ public class Supplier {
     @NotBlank(message = "address cannot be blank")
     private String address;
 
-    @NotNull(message = "typeOfSupplier is required")
-    @NotBlank(message = "typeOfSupplier cannot be blank")
-    private String typeOfSupplier;
+    @NotNull(message = "supplyType is required")
+    private List<SupplyType> supplyTypes;
 
-    public Supplier(String name, String CNPJ, String phone, String email, String address, String typeOfSupplier) {
+    public Supplier(String name, String CNPJ, String phone, String email, String address, List<SupplyType> supplyTypes) {
         this.name = name;
         this.CNPJ = CNPJ;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.typeOfSupplier = typeOfSupplier;
+        this.supplyTypes = supplyTypes;
     }
 }

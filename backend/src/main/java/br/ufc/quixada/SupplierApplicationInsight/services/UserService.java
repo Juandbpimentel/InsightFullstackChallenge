@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(String id, Map<String, Object> userFields) throws UserNotFoundException {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         return updateUser(userFields, user);
     }
 
@@ -102,18 +102,24 @@ public class UserService implements UserDetailsService {
         if (userFields.isEmpty()) {
             throw new IllegalArgumentException("No fields to update");
         }
-        if (userFields.containsKey("name") && !((String) userFields.get("name")).isEmpty()) {
-            user.setName(userFields.get("name").toString());
-        }
-        if (userFields.containsKey("email") && !((String) userFields.get("email")).isEmpty()) {
-            user.setEmail(userFields.get("email").toString());
-        }
-        if (userFields.containsKey("password") && !((String) userFields.get("password")).isEmpty()) {
-            user.setPassword(new BCryptPasswordEncoder().encode(userFields.get("password").toString()));
-        }
-        if (userFields.containsKey("role") && !((String) userFields.get("role")).isEmpty()) {
-            user.setRole(UserRole.valueOf(userFields.get("role").toString()));
-        }
+        userFields.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    user.setName((String) value);
+                    break;
+                case "email":
+                    user.setEmail((String) value);
+                    break;
+                case "password":
+                    user.setPassword(new BCryptPasswordEncoder().encode((String) value));
+                    break;
+                case "role":
+                    user.setRole(UserRole.valueOf((String) value));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid field: " + key);
+            }
+        });
         System.out.println(user);
         return userRepository.save(user);
     }
