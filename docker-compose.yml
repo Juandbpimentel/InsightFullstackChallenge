@@ -14,7 +14,7 @@ services:
     ports:
       - "0.0.0.0:27017:27017"
     networks:
-      - insight-backend-network
+      - insight-network
 
   mongo-express:
     image: mongo-express
@@ -33,12 +33,12 @@ services:
     ports:
       - "0.0.0.0:8081:8081"
     networks:
-      - insight-backend-network
+      - insight-network
 
   backend:
     image: insight-backend
     container_name: insight_backend
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
@@ -55,8 +55,36 @@ services:
     depends_on:
       - mongodb
     networks:
-      - insight-backend-network
+      - insight-network
+
+  frontend:
+    image: insight-frontend
+    container_name: insight_frontend
+    build:
+      context: ./frontend
+      dockerfile: DockerfileFront
+    environment:
+      REACT_APP_BACKEND_URL: http://localhost:8080
+    ports:
+      - "0.0.0.0:3000:3000"
+    networks:
+      - insight-network
+
+  nginx:
+    image: nginx:latest
+    container_name: insight_nginx
+    build:
+      context: ./frontend
+      dockerfile: DockerfileNginx
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - insight-network
 
 networks:
-  insight-backend-network:
+  insight-network:
     driver: bridge
