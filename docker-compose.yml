@@ -70,23 +70,6 @@ services:
     networks:
       - insight-network
 
-  nginx:
-    image: nginx:latest
-    container_name: insight_nginx
-    build:
-      context: ./frontend
-      dockerfile: DockerfileNginx
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - ./frontend/certificates:/etc/nginx/certificates
-    networks:
-      - insight-network
-
 networks:
   insight-network:
     driver: bridge
