@@ -1,3 +1,2 @@
 *.vscode
-nginx.conf
 certificates/*
