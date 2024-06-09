@@ -7,6 +7,11 @@ import { AppProviders } from '@/utils/providers/app-providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const metadata: Metadata = {
+	title: 'Fornecedores App - Aplicação de Desafio da Insight',
+	description: 'Essa aplicação é um desafio da Insight para a vaga de bolsista desenvolvedor fullstack',
+}
+
 export default function RootLayout({
 	children,
 }: Readonly<{
