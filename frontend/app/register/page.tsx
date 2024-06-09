@@ -1,5 +1,5 @@
 'use client'
-import { LoginForm } from '@/components/LoginForm'
+import { RegisterForm } from '@/components/RegisterForm'
 import { colors } from '@/styles/colors'
 import { useAuth } from '@/utils/hooks/use-auth'
 import { api } from '@/utils/libs/axios/api'
@@ -11,23 +11,25 @@ import LoadingScreen from '@/components/Loading'
 import { useError } from '@/utils/hooks/use-error'
 import { AppError } from '@/utils/errors/app-error'
 
-export default function LoginPage() {
+export default function RegisterPage() {
 	const { signIn } = useAuth()
 	const { errorModalRecievingError } = useError()
 	const router = useRouter()
 
-	const handleLogin = useCallback(
+	const handleRegister = useCallback(
 		async (values: any) => {
-			const { email, password } = values
+			const { email, password, role, name } = values
 			try {
-				let loginData = await api.post('/auth/login', {
+				let registerData = await api.post('/auth/register', {
+					name,
+					role,
 					email,
 					password,
 				})
-				await signIn(loginData.data.user, loginData.data.token)
+				await signIn(registerData.data.user, registerData.data.token)
 				router.push('/dashboard')
 			} catch (error) {
-				errorModalRecievingError('Erro ao fazer login', error)
+				errorModalRecievingError('Erro ao se registrar', error)
 				console.error(error)
 			}
 		},
@@ -58,8 +60,14 @@ export default function LoginPage() {
 							}}
 						></div>
 						<Space direction='vertical' className='flex p-10 md:w-[60%] w-full' style={{ display: 'flex' }}>
-							<h1 className='font-bold'>Login</h1>
-							<LoginForm handleLogin={handleLogin}></LoginForm>
+							<div className='flex w-full' style={{ justifyContent: 'space-between' }}>
+								<h1 className='font-bold'>Registrar-se</h1>
+								<Button type='default' href='/login' className='mb-2'>
+									Voltar
+								</Button>
+							</div>
+
+							<RegisterForm handleRegister={handleRegister}></RegisterForm>
 						</Space>
 					</div>
 				</main>

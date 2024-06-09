@@ -1,10 +1,8 @@
-import { colors } from '@/styles/colors'
-import { Space } from 'antd'
+'use client'
+import LoadingScreen from '@/components/Loading'
+import UseProtectedRoutes from '@/utils/hooks/use-protected-routes'
 
-export default function HomePage() {
-	return (
-		<div>
-			<h1>Home</h1>
-		</div>
-	)
+export default function RootPage() {
+	UseProtectedRoutes()
+	return <LoadingScreen></LoadingScreen>
 }

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import React from 'react'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import './globals.css'
+import { AppProviders } from '@/utils/providers/app-providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,9 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<AntdRegistry>{children}</AntdRegistry>
+				<AppProviders>
+					<AntdRegistry>{children}</AntdRegistry>
+				</AppProviders>
 			</body>
 		</html>
 	)

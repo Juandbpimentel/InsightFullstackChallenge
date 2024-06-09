@@ -1,10 +1,16 @@
-import React from 'react'
+'use client'
+import LoadingScreen from '@/components/Loading'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 
-export default function DashboardPage() {
+export default function Dashboard() {
+	const router = useRouter()
+	useEffect(() => {
+		router.push('/dashboard/suppliers')
+	})
 	return (
-		<div>
-			<h1>Dashboard Page</h1>
-			{/* Adicione o conteúdo da página aqui */}
-		</div>
+		<>
+			<LoadingScreen></LoadingScreen>
+		</>
 	)
 }

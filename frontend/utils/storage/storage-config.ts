@@ -1,0 +1,2 @@
+export const SESSION_TOKEN_KEY = 'SESSIONTOKENKEY'
+export const USER_KEY = 'USERKEY'

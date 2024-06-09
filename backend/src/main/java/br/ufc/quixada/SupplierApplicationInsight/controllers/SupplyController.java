@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/supply")
+@RequestMapping("/supplies")
 public class SupplyController {
 
     @Autowired
@@ -59,7 +59,7 @@ public class SupplyController {
 /*
 * {
   "exception": "java.lang.NullPointerException",
-  "errorCode": "internal-server-error",
+  "errorcode": "internal-server-error",
   "message": "Cannot invoke \"br.ufc.quixada.SupplierApplicationInsight.repositories.SupplierRepository.findById(Object)\" because \"this.supplierRepository\" is null"
 }
 *

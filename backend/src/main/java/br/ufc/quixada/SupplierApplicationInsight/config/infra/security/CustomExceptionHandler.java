@@ -29,7 +29,7 @@ public class CustomExceptionHandler {
         exception.getBindingResult().getFieldErrors().forEach(error ->
                 invalidArguments.put(error.getField(), error.getDefaultMessage()));
 
-        errorMap.put("errorCode", "invalid-arguments");
+        errorMap.put("errorcode", "invalid-arguments");
         errorMap.put("invalid-arguments", invalidArguments);
         errorMap.put("message", exception.getMessage());
         return errorMap;
@@ -41,7 +41,7 @@ public class CustomExceptionHandler {
             UnexpectedTypeException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "validation-unexpected-type");
+        errorMap.put("errorcode", "validation-unexpected-type");
         return errorMap;
     }
 
@@ -51,7 +51,7 @@ public class CustomExceptionHandler {
             UserNotFoundException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "user-not-found");
+        errorMap.put("errorcode", "user-not-found");
         return errorMap;
     }
 
@@ -61,7 +61,7 @@ public class CustomExceptionHandler {
             UsernameNotFoundException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "user-not-found");
+        errorMap.put("errorcode", "user-not-found");
         return errorMap;
     }
 
@@ -71,7 +71,7 @@ public class CustomExceptionHandler {
             SupplierNotFoundException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "supplier-not-found");
+        errorMap.put("errorcode", "supplier-not-found");
         return errorMap;
     }
 
@@ -81,7 +81,7 @@ public class CustomExceptionHandler {
             SupplyNotFoundException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "supply-not-found");
+        errorMap.put("errorcode", "supply-not-found");
         return errorMap;
     }
 
@@ -90,7 +90,7 @@ public class CustomExceptionHandler {
     public Map<String, String> handleAdminAlreadyExistsException(
             AdminAlreadyExistsException exception) {
         Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorCode", "admin-already-exists");
+        errorMap.put("errorcode", "admin-already-exists");
         errorMap.put("message", exception.getMessage());
         return errorMap;
     }
@@ -101,7 +101,7 @@ public class CustomExceptionHandler {
             UserAlreadyExistsException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "user-already-exists");
+        errorMap.put("errorcode", "user-already-exists");
         return errorMap;
     }
 
@@ -111,7 +111,7 @@ public class CustomExceptionHandler {
             SupplierAlreadyExistsException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "supplier-already-exists");
+        errorMap.put("errorcode", "supplier-already-exists");
         return errorMap;
     }
 
@@ -121,7 +121,7 @@ public class CustomExceptionHandler {
             AuthenticationException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "unauthorized");
+        errorMap.put("errorcode", "unauthorized");
         return errorMap;
     }
 
@@ -131,7 +131,7 @@ public class CustomExceptionHandler {
             AuthenticationException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "unauthorized");
+        errorMap.put("errorcode", "unauthorized");
         return errorMap;
     }
 
@@ -142,16 +142,16 @@ public class CustomExceptionHandler {
         Map<String, String> errorMap = new HashMap<>();
         if (exception.getMessage().contains("Required request body is missing")) {
             errorMap.put("message", "Required request body is missing");
-            errorMap.put("errorCode", "missing-body-bad-request");
+            errorMap.put("errorcode", "missing-body-bad-request");
             return errorMap;
         }
         if (exception.getMessage().contains("No fields to update")) {
             errorMap.put("message", "No fields to update");
-            errorMap.put("errorCode", "no-fields-update");
+            errorMap.put("errorcode", "no-fields-update");
             return errorMap;
         }
         errorMap.put("message", exception.getMessage());
-        errorMap.put("errorCode", "internal-server-error");
+        errorMap.put("errorcode", "internal-server-error");
         errorMap.put("exception", exception.getClass().getName());
         return errorMap;
     }

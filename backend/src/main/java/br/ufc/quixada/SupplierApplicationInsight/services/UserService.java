@@ -32,7 +32,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        System.out.println(user);
         return user;
     }
 
@@ -120,7 +119,6 @@ public class UserService implements UserDetailsService {
                     throw new IllegalArgumentException("Invalid field: " + key);
             }
         });
-        System.out.println(user);
         return userRepository.save(user);
     }
 }
