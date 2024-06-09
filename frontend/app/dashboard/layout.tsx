@@ -52,7 +52,9 @@ export default function DashboardLayout({
 							</Breadcrumb>
 							{children}
 						</Content>
-						<Footer style={{ textAlign: 'center' }}>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
+						<Footer style={{ textAlign: 'center' }}>
+							Juan Pimentel ©{new Date().getFullYear()} Created by Juan D.B. Pimentel
+						</Footer>
 					</Layout>
 				</Layout>
 			)}
