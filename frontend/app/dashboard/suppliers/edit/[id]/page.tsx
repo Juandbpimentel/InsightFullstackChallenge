@@ -1,4 +1,5 @@
 'use client'
+import LoadingScreen from '@/components/Loading'
 import { EditSupplierForm } from '@/components/supplier/EditSupplierForm'
 import { AppError } from '@/utils/errors/app-error'
 import { useAuth } from '@/utils/hooks/use-auth'
@@ -72,7 +73,7 @@ export default function EditSupplierPage({ params }: { params: { id: string } })
 					Voltar
 				</Button>
 			</div>
-			{loading && <p>Carregando...</p>}
+			{loading && <LoadingScreen></LoadingScreen>}
 			{!loading && (
 				<>
 					{!supplier ? (
