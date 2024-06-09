@@ -21,7 +21,6 @@ export default function DashboardLayout({
 			.split('/')
 			.filter((path) => path !== '')
 			.map((path) => path.charAt(0).toUpperCase() + path.slice(1))
-			.map((path) => path.charAt(0).toUpperCase() + path.slice(1))
 		setPagePath(pathCapitalized)
 	}, [rawPath])
 
