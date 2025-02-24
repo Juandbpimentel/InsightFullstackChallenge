@@ -14,6 +14,7 @@ export function EditSupplierForm({
 	const [form] = Form.useForm()
 
 	useEffect(() => {
+		if (!supplier) return
 		form.setFieldsValue({
 			name: supplier.name,
 			email: supplier.email,
@@ -21,8 +22,7 @@ export function EditSupplierForm({
 			address: supplier.address,
 			supplyTypes: supplier.supplyTypes,
 		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	})
+	},[supplier])
 	const formSchema = Yup.object({
 		name: Yup.string().required('O nome é obrigatório'),
 		phone: Yup.string()

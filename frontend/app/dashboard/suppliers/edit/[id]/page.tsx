@@ -28,6 +28,8 @@ export default function EditSupplierPage({ params }: { params: { id: string } })
 						Authorization: `Bearer ${sessionToken}`,
 					},
 				})
+				if (response.data == supplier)
+					return
 				setSupplier(response.data)
 			} catch (error) {
 				errorModalRecievingError('Erro ao buscar fornecedor', error)
@@ -36,8 +38,12 @@ export default function EditSupplierPage({ params }: { params: { id: string } })
 			}
 			setLoading(false)
 		}
-		fetchSupplier()
-	}, [errorModalRecievingError, id, sessionToken])
+		fetchSupplier().then(r =>
+			{
+				console.log(r)
+			}
+		)
+	}, [ id, sessionToken ])
 
 	const handleEditSupplier = async (values: any) => {
 		try {

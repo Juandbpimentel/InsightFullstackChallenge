@@ -37,6 +37,8 @@ export default function ViewSupplierPage({ params }: { params: { id: string } })
 						Authorization: `Bearer ${sessionToken}`,
 					},
 				})
+				if (response.data == supplier)
+					return
 				setSupplier(response.data)
 			} catch (error) {
 				errorModalRecievingError('Erro ao buscar fornecedor', error)
@@ -46,8 +48,12 @@ export default function ViewSupplierPage({ params }: { params: { id: string } })
 			}
 			setLoading(false)
 		}
-		fetchSupplier()
-	})
+		fetchSupplier().then(r =>
+			{
+				console.log(r)
+			}
+		)
+	}, [id, sessionToken])
 
 	return (
 		<div>

@@ -36,7 +36,6 @@ services:
       - insight-network
 
   backend:
-    image: insight-backend
     container_name: insight_backend
     build:
       context: ./backend
@@ -58,7 +57,6 @@ services:
       - insight-network
 
   frontend:
-    image: insight-frontend
     container_name: insight_frontend
     build:
       context: ./frontend
@@ -69,6 +67,19 @@ services:
       - "0.0.0.0:3000:3000"
     networks:
       - insight-network
+
+#  nginx:
+#    image: nginx:latest
+#    container_name: insight_nginx
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#      - "25565:25565"
+#    volumes:
+#      - ./nginx_default.conf:/etc/nginx/nginx_default.conf
+#      - ./certificates:/etc/nginx/certificates
+#    networks:
+#      - insight-network
 
 networks:
   insight-network:

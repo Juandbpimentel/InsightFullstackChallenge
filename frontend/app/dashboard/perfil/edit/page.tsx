@@ -26,18 +26,22 @@ const Page = () => {
 						Authorization: `Bearer ${sessionToken}`,
 					},
 				})
+				if (response.data == user)
+					return
 				setUser(response.data)
 			} catch (error) {
 				errorModalRecievingError('Erro ao buscar usuário', error)
 				console.error(error)
-
 				setUser(null)
 			}
 			setLoading(false)
 		}
-
-		fetchMe()
-	}, [errorModalRecievingError, sessionToken])
+		fetchMe().then(r =>
+			{
+				console.log(r)
+			}
+		)
+	}, [sessionToken])
 
 	const handleUpdate = async (values: any) => {
 		try {

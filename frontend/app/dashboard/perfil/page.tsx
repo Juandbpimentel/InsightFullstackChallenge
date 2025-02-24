@@ -12,20 +12,22 @@ import React, { useEffect } from 'react'
 export default function UserPage() {
 	const { sessionToken, signOut } = useAuth()
 	const { errorModalRecievingError } = useError()
-	const [modal, contextHolder] = Modal.useModal()
+	const [ modal, contextHolder ] = Modal.useModal()
 	const router = useRouter()
 
 	const [user, setUser] = React.useState<UserToken | null>(null)
 	const [loading = true, setLoading] = React.useState<boolean>()
 
 	useEffect(() => {
-		const fetchSupplier = async () => {
+		const fetchMe = async () => {
 			try {
 				const response = await api.get(`/users/me`, {
 					headers: {
 						Authorization: `Bearer ${sessionToken}`,
 					},
 				})
+				if (response.data == user)
+					return
 				setUser(response.data)
 			} catch (error) {
 				errorModalRecievingError('Erro ao buscar usuário', error)
@@ -34,8 +36,12 @@ export default function UserPage() {
 			}
 			setLoading(false)
 		}
-		fetchSupplier()
-	}, [errorModalRecievingError, sessionToken])
+		fetchMe().then(r =>
+			{
+				console.log(r)
+			}
+		)
+	}, [sessionToken])
 
 	const handleDeleteMyUser = async () => {
 		modal.confirm({

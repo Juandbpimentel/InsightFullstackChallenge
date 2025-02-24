@@ -21,22 +21,23 @@ export default function FornecedoresPage() {
 					Authorization: `Bearer ${sessionToken}`,
 				},
 			})
+			if (response.data == suppliers)
+				return
 			const json = await response.data
 			setSuppliers(json)
 		} catch (error) {
 			errorModalRecievingError('Erro ao buscar fornecedores', error)
 			console.error(error)
 		}
-	}, [errorModalRecievingError, sessionToken])
+	}, [ sessionToken ])
 
 	useEffect(() => {
-		try {
-			fetchSuppliers()
-		} catch (error) {
-			errorModalRecievingError('Erro ao buscar fornecedores', error)
-			console.error(error)
-		}
-	})
+		fetchSuppliers().then(r =>
+			{
+				console.log(r)
+			}
+		)
+	}, [fetchSuppliers])
 
 	const router = useRouter()
 

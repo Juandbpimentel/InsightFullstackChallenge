@@ -2,9 +2,11 @@
 	"apps": [
 		{
 			"name": "insight-challenge-supplier-frontend",
-			"script": "./node_modules/next/dist/bin/next",
+			"script": "npm",
+			"args": "run start",
 			"env": {
-				"PORT": "3000"
+				"PORT": "3000",
+				"NODE_ENV": "production"
 			}
 		}
 	]
