@@ -7,6 +7,11 @@ docker compose down
 certbot certonly --standalone -d insightchallenge.juanpimentel.dev.br \
   --staple-ocsp -m juandbpimentel@gmail.com --agree-tos
 
+# Cria a pasta certificates se não existir
+if [ ! -d ./certificates ]; then
+  mkdir ./certificates
+fi
+
 # Criar o arquivo options-ssl-nginx.conf se não existir
 if [ ! -f /etc/letsencrypt/options-ssl-nginx.conf ]; then
   cat <<EOL > /etc/letsencrypt/options-ssl-nginx.conf
