@@ -18,7 +18,7 @@ services:
   mongo-express:
     image: mongo-express
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongodb_insight
+      ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_MONGODB_ENABLE_ADMIN: true
       ME_CONFIG_MONGODB_ADMINUSERNAME: rootinsight
@@ -40,7 +40,7 @@ services:
       JWT_SECRET: insightsecret
       MONGODB_USERNAME: insightuser
       MONGODB_PASSWORD: insightpassword
-      MONGODB_HOST: mongodb_insight
+      MONGODB_HOST: mongodb
       MONGODB_PORT: 27017
       MONGODB_DATABASE: insight
       PORT: 8080
