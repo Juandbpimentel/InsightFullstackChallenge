@@ -1,7 +1,6 @@
 services:
   mongodb:
     image: mongo:8.0-rc-jammy
-    container_name: mongodb_insight
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: rootinsight
@@ -18,7 +17,6 @@ services:
 
   mongo-express:
     image: mongo-express
-    container_name: mongodb_express_insight
     environment:
       ME_CONFIG_MONGODB_SERVER: mongodb_insight
       ME_CONFIG_MONGODB_PORT: 27017
@@ -27,7 +25,6 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: rootinsight
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: admin
-
     depends_on:
       - mongodb
     ports:
@@ -36,7 +33,6 @@ services:
       - insight-network
 
   backend:
-    container_name: insight_backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -57,7 +53,6 @@ services:
       - insight-network
 
   frontend:
-    container_name: insight_frontend
     build:
       context: ./frontend
       dockerfile: DockerfileFront
@@ -65,21 +60,24 @@ services:
       REACT_APP_BACKEND_URL: http://localhost:8080
     ports:
       - "0.0.0.0:3000:3000"
+    depends_on:
+      - backend
     networks:
       - insight-network
 
 #  nginx:
 #    image: nginx:latest
-#    container_name: insight_nginx
 #    ports:
 #      - "80:80"
 #      - "443:443"
-#      - "25565:25565"
 #    volumes:
-#      - ./nginx_default.conf:/etc/nginx/nginx_default.conf
+#      - ./nginx_default.conf:/etc/nginx/nginx.conf alterar para o arquivo de configuração do nginx.conf em modo produção
 #      - ./certificates:/etc/nginx/certificates
 #    networks:
 #      - insight-network
+#    depends_on:
+#      - frontend
+#      - backend
 
 networks:
   insight-network:
