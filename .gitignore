@@ -1,6 +1,6 @@
 *.vscode
 certificates/*
-nginx/nginx.conf
+nginx.conf
 docker-compose-prod.yml
 .idea/*
 .idea
